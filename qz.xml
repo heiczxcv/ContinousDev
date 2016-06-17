@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <bean id="CloudPush" class="com.company.Main" />
+
+    <!-- specifing class and method that is going to be called on a specified
+        time basis -->
+    <bean id="myJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="CloudPush" />
+        <property name="targetMethod" value="start" />
+    </bean>
+
+    <!-- simple trigger specify repeat interval and delay time -->
+    <bean id="simpleTrigger"
+          class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="myJob" />
+        <property name="repeatInterval" value="600" /><!-- 毫秒 -->
+        <property name="startDelay" value="300" />
+    </bean>
+
+    <!-- scheduler factory bean to bind,the executing code and time intervals
+        together -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="jobDetails">
+            <list>
+                <ref bean="myJob" />
+            </list>
+        </property>
+        <property name="triggers">
+            <list>
+                <ref bean="simpleTrigger" />
+            </list>
+        </property>
+    </bean>
+</beans>
