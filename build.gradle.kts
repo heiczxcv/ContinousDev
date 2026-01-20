@@ -17,6 +17,14 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	
+	// OpenCV for face detection
+	implementation("org.openpnp:opencv:4.7.0-0")
+	
+	// Deep Java Library for face recognition (patched version)
+	implementation("ai.djl:api:0.31.1")
+	implementation("ai.djl.opencv:opencv:0.31.1")
+	
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
