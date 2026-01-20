@@ -134,28 +134,20 @@ public class FaceRecognitionService {
     
     /**
      * Calculate similarity between two face encodings
+     * Since encodings are pre-normalized, this is just the dot product
      */
     private double calculateSimilarity(double[] encoding1, double[] encoding2) {
         if (encoding1.length != encoding2.length) {
             return 0.0;
         }
         
-        // Calculate cosine similarity
+        // Calculate dot product (encodings are already normalized)
         double dotProduct = 0.0;
-        double norm1 = 0.0;
-        double norm2 = 0.0;
-        
         for (int i = 0; i < encoding1.length; i++) {
             dotProduct += encoding1[i] * encoding2[i];
-            norm1 += encoding1[i] * encoding1[i];
-            norm2 += encoding2[i] * encoding2[i];
         }
         
-        if (norm1 == 0.0 || norm2 == 0.0) {
-            return 0.0;
-        }
-        
-        return dotProduct / (Math.sqrt(norm1) * Math.sqrt(norm2));
+        return dotProduct;
     }
     
     /**

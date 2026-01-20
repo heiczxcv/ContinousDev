@@ -58,8 +58,6 @@ class FaceRecognitionServiceTest {
     void testGetAllPersons() {
         List<Person> persons = faceRecognitionService.getAllPersons();
         assertNotNull(persons);
-        // Initially should be empty or contain previously registered persons
-        assertTrue(persons.size() >= 0);
     }
 
     @Test
